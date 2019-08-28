@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <input type="file" multiple>
+  <button>Enviar</button>
+
+  <script>
+    const input = document.querySelector("input");
+    const button = document.querySelector("button");
+
+    button.addEventListener("click", handleClick);
+
+    const options = {
+      headers: {
+        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL3dvcmRwcmVzcyIsImlhdCI6MTU2NzAxODMzMywibmJmIjoxNTY3MDE4MzMzLCJleHAiOjE1NjcxMDQ3MzMsImRhdGEiOnsidXNlciI6eyJpZCI6IjMifX19.7hOdK7n1Qck466bXBK4KGdS9RozHvql5bqvbEgWZZP0"
+      }
+    }
+
+    function handleClick() {
+      const files = input.files;
+      const form = new FormData();
+
+      for (let i = 0; i < files.length; i++) {
+        form.append(files[i].name, files[i]);
+      }
+
+      form.append("nome", "Alex")
+      form.append("descricao", "Face")
+      form.append("preco", "9999")
+  
+      axios.post("http://localhost/wordpress/wp-json/api/produto", form, options);
+    }
+
+  </script>
+</body>
+</html>
